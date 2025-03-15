@@ -21,7 +21,7 @@ class VotingServer
         TcpListener listener = new TcpListener(IPAddress.Any, 5000);
         listener.Start();
 
-        // Запуск таймера голосования
+        
         Thread timerThread = new Thread(() =>
         {
             Thread.Sleep(votingTime * 1000);
@@ -60,7 +60,7 @@ class VotingServer
 
         try
         {
-            // Авторизация пользователя
+            
             SendData(stream, "Enter your username:");
             username = ReceiveData(stream);
             if (string.IsNullOrEmpty(username) || users.ContainsKey(username))
@@ -73,7 +73,7 @@ class VotingServer
             users[username] = null;
             SendData(stream, "Welcome, " + username + "!");
 
-            // Отправка вариантов голосования
+
             SendOptions(stream);
 
             while (isRunning)
@@ -183,10 +183,7 @@ class VotingServer
                 {
                     SendData(client.GetStream(), message);
                 }
-                catch
-                {
-                    // Ignore disconnected clients
-                }
+                catch{ }
             }
         }
     }
@@ -228,10 +225,7 @@ class VotingServer
                 {
                     SendData(client.GetStream(), message);
                 }
-                catch
-                {
-                    // Ignore disconnected clients
-                }
+                catch{ }
             }
         }
     }
